@@ -1,27 +1,29 @@
-package com.bitatron.countdowns
+package com.bitatron.countdowns.features.home.presentation
 
 import android.os.Bundle
-import android.util.Log
-import android.widget.CompoundButton
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
-import kotlinx.android.synthetic.main.activity_main.*
+import androidx.appcompat.app.AppCompatActivity
+import com.bitatron.countdowns.R
+import com.bitatron.countdowns.core.presentation.navigation.Navigation
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
+
+    private val navigation: Navigation by inject()
 
     private lateinit var textMessage: TextView
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
-            R.id.navigation_home -> {
+            R.id.navigation_global_countdowns -> {
                 textMessage.setText(R.string.title_home)
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_dashboard -> {
+            R.id.navigation_bookmarks -> {
                 textMessage.setText(R.string.title_dashboard)
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_notifications -> {
+            R.id.navigation_user_countdowns -> {
                 textMessage.setText(R.string.title_notifications)
                 return@OnNavigationItemSelectedListener true
             }
@@ -34,11 +36,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
-        textMessage = findViewById(R.id.message)
-        navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+        navigation.setupWithBottomNavigationView(this, navView, R.id.navigationHostFragment)
 
-        testChip.setOnCheckedChangeListener { compoundButton, isChecked ->
-            Log.d("Pafto", "Is checked?: $isChecked")
-        }
+        textMessage = findViewById(R.id.message)
+//        navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
     }
 }
