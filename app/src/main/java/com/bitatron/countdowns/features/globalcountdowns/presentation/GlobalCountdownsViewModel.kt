@@ -1,6 +1,7 @@
 package com.bitatron.countdowns.features.globalcountdowns.presentation
 
 import com.bitatron.countdowns.features.globalcountdowns.domain.GetCategoriesUseCase
+import com.bitatron.countdowns.features.globalcountdowns.domain.GetGlobalCountdownsUseCase
 import com.bitatron.countdowns.features.globalcountdowns.presentation.model.UiCategory
 import com.bitatron.countdowns.features.globalcountdowns.presentation.model.UiSubCategory
 import com.bitatron.snazzyrecycling.ClickedRecyclerItem
@@ -15,7 +16,8 @@ class GlobalCountdownsViewModel(
     logger: Logger,
     schedulersProvider: SchedulersProvider,
     getCategoriesUseCase: GetCategoriesUseCase,
-    itemClicked: PublishSubject<ClickedRecyclerItem>
+    itemClicked: PublishSubject<ClickedRecyclerItem>,
+    getGlobalCountdownsUseCase: GetGlobalCountdownsUseCase
 ) : StateViewModel<GlobalCountdownsUiModel>(
     GlobalCountdownsUiModel(),
     logger,
@@ -31,6 +33,14 @@ class GlobalCountdownsViewModel(
                         .doOnError { input().onNext(LoadCategoriesFailedInput(it)) }
                         .onErrorResumeNext(Single.never())
                 }.subscribe { input().onNext(LoadCategoriesSuccessInput(it)) },
+
+            viewModelAction().filter { it == LoadCountdownsViewModelAction }
+                .flatMapSingle {
+                    getGlobalCountdownsUseCase.execute()
+                        .doOnError { logger.e(this, it) }
+                        .doOnError { input().onNext(LoadCountdownsFailedInput(it)) }
+                        .onErrorResumeNext(Single.never())
+                }.subscribe { input().onNext(LoadCountdownsSuccessInput(it)) },
 
             itemClicked.filter { it.clickAction is CategoryClickAction }
                 .map { it.recyclerItem as UiCategory to (it.clickAction as CategoryClickAction).isChecked}

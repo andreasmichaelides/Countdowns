@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.bitatron.countdowns.R
-import com.bitatron.snazzyrecycling.AsyncCoreAdapter
 import com.bitatron.snazzyrecycling.CoreAdapter
 import com.bitatron.snazzyrecycling.ItemOffsetDecoration
 import com.bitatron.statestream.presentation.popAll
@@ -20,6 +19,7 @@ class GlobalCountdownsFragment : Fragment() {
     private val globalCountdownsViewModel: GlobalCountdownsViewModel by sharedViewModel()
     private val categoriesCoreAdapter: CoreAdapter by inject()
     private val subCategoriesCoreAdapter: CoreAdapter by inject()
+    private val countdownsCoreAdapter: CoreAdapter by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +38,7 @@ class GlobalCountdownsFragment : Fragment() {
         val itemOffsetDecoration = ItemOffsetDecoration(requireActivity(), R.dimen.recycler_item_spacing)
         categoriesRecycler.addItemDecoration(itemOffsetDecoration)
         subCategoriesRecycler.addItemDecoration(itemOffsetDecoration)
+        countdownsRecycler.adapter = countdownsCoreAdapter
 
         globalCountdownsViewModel.loadCategories()
     }
@@ -45,6 +46,7 @@ class GlobalCountdownsFragment : Fragment() {
     private fun onStateChanged(uiModel: GlobalCountdownsUiModel) {
         categoriesCoreAdapter.setData(uiModel.categories)
         subCategoriesCoreAdapter.setData(uiModel.subCategoriesToDisplay)
+        countdownsCoreAdapter.setData(uiModel.countDownsToDisplay)
 
 //        subCategoriesRecycler.visibility = uiModel.subCategoriesToDisplay.isEmpty()
 

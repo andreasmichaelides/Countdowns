@@ -12,14 +12,17 @@ class GetCategoriesUseCase(private val schedulersProvider: SchedulersProvider) {
             CategoryData(
                 listOf(
                     UiCategory("1", "Entertainment", false),
-                    UiCategory("2", "Computing", false)
+                    UiCategory("2", "Computing", false),
+                    UiCategory("3", "Holidays", false)
                 ),
                 listOf(
                     UiSubCategory("1-1", "1", "Video Games", false),
                     UiSubCategory("1-2", "1", "TV Series", false),
                     UiSubCategory("1-3", "1", "Movies", false),
                     UiSubCategory("2-1", "2", "Hardware", false),
-                    UiSubCategory("2-2", "2", "Software", false)
+                    UiSubCategory("2-2", "2", "Software", false),
+                    UiSubCategory("3-1", "3", "Travel", false),
+                    UiSubCategory("3-2", "3", "Business", false)
                 )
             )
         ).subscribeOn(schedulersProvider.io())

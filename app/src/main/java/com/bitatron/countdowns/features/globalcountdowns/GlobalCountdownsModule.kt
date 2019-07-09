@@ -13,7 +13,7 @@ val globalCountdownsModule = module {
     factory { GetGlobalCountdownsUseCase(get()) }
     factory { GetCategoriesUseCase(get()) }
 
-    viewModel { GlobalCountdownsViewModel(get(), get(), get(), get(named(PUBLISH_SUBJECT_RECYCLER_ITEM_CLICKED))) }
+    viewModel { GlobalCountdownsViewModel(get(), get(), get(), get(named(PUBLISH_SUBJECT_RECYCLER_ITEM_CLICKED)), get()) }
 
     addViewHolders()
 }

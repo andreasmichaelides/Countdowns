@@ -2,6 +2,7 @@ package com.bitatron.countdowns.features.globalcountdowns.presentation
 
 import com.bitatron.countdowns.features.globalcountdowns.domain.CategoryData
 import com.bitatron.countdowns.features.globalcountdowns.presentation.model.UiCategory
+import com.bitatron.countdowns.features.globalcountdowns.presentation.model.UiCountdown
 import com.bitatron.countdowns.features.globalcountdowns.presentation.model.UiSubCategory
 import com.bitatron.statestream.presentation.*
 import java.util.*
@@ -10,16 +11,21 @@ data class GlobalCountdownsUiModel(
     val isLoading: Boolean = false,
     val categories: List<UiCategory> = emptyList(),
     val subCategories: List<UiSubCategory> = emptyList(),
-    val subCategoriesToDisplay: List<UiSubCategory> = emptyList()
+    val subCategoriesToDisplay: List<UiSubCategory> = emptyList(),
+    val countDowns: List<UiCountdown> = emptyList(),
+    val countDownsToDisplay: List<UiCountdown> = emptyList()
 ) : UiModel(Stack(), Stack(), Stack())
 
 object LoadCategoriesViewModelAction : ViewModelAction
+object LoadCountdownsViewModelAction : ViewModelAction
 
 object ShowLoadCategoriesErrorActivityAction : ActivityAction
+object ShowLoadCountdownsErrorActivityAction : ActivityAction
 
 object LoadCategoriesInput : Input<GlobalCountdownsUiModel> {
     override fun transformState(uiModel: GlobalCountdownsUiModel): GlobalCountdownsUiModel =
         uiModel.copy(isLoading = true)
+            .push(LoadCountdownsViewModelAction)
             .push(LoadCategoriesViewModelAction)
 }
 
@@ -38,6 +44,21 @@ data class LoadCategoriesFailedInput(private val throwable: Throwable) : Input<G
             .push(ShowLoadCategoriesErrorActivityAction)
 }
 
+data class LoadCountdownsSuccessInput(private val countdowns: List<UiCountdown>) : Input<GlobalCountdownsUiModel> {
+    override fun transformState(uiModel: GlobalCountdownsUiModel): GlobalCountdownsUiModel =
+        uiModel.copy(
+            isLoading = false,
+            countDowns = countdowns,
+            countDownsToDisplay = countdowns
+        )
+}
+
+data class LoadCountdownsFailedInput(private val throwable: Throwable) : Input<GlobalCountdownsUiModel> {
+    override fun transformState(uiModel: GlobalCountdownsUiModel): GlobalCountdownsUiModel =
+        uiModel.copy(isLoading = false)
+            .push(ShowLoadCountdownsErrorActivityAction)
+}
+
 data class SelectCategoryInput(private val category: UiCategory, private val isChecked: Boolean) :Input<GlobalCountdownsUiModel> {
     override fun transformState(uiModel: GlobalCountdownsUiModel): GlobalCountdownsUiModel {
         val updatedCategory = category.copy(isSelected = isChecked)
@@ -54,8 +75,11 @@ data class SelectCategoryInput(private val category: UiCategory, private val isC
             subCategoriesToDisplay
         }
 
+        val countdownsToDisplay = getCountdownsToDisplay(updatedCategory, uiModel)
 
-        return uiModel.copy(categories = categories, subCategoriesToDisplay = subCategoriesToDisplay)
+        return uiModel.copy(categories = categories,
+            subCategoriesToDisplay = subCategoriesToDisplay,
+            countDownsToDisplay = countdownsToDisplay)
     }
 }
 
@@ -64,7 +88,22 @@ data class SelectSubCategoryInput(private val subCategory: UiSubCategory, privat
         val updatedSubCategory = subCategory.copy(isSelected = isChecked)
         val subCategoriesToDisplay = uiModel.subCategoriesToDisplay.map { if (it.id == updatedSubCategory.id) updatedSubCategory else it }
 
-        return uiModel.copy(subCategoriesToDisplay = subCategoriesToDisplay)
+        val categoryCountDowns = getCountdownsToDisplay(uiModel.categories.first { it.isSelected }, uiModel)
+        val selectedSubCategories = subCategoriesToDisplay.filter { it.isSelected }
+        val countdownsToDisplay = when (selectedSubCategories.isNotEmpty()) {
+            true -> categoryCountDowns.filter { uiCountdown -> uiCountdown.subCategories.any { subCategoryId -> selectedSubCategories.any { subCategoryId == it.id } } }
+            else -> categoryCountDowns
+        }
+
+        return uiModel.copy(subCategoriesToDisplay = subCategoriesToDisplay, countDownsToDisplay = countdownsToDisplay)
+    }
+}
+
+private fun getCountdownsToDisplay(updatedCategory: UiCategory, uiModel: GlobalCountdownsUiModel
+): List<UiCountdown> {
+    return when (updatedCategory.isSelected) {
+        true -> uiModel.countDowns.filter { it.categories.contains(updatedCategory.id) }
+        else -> uiModel.countDowns
     }
 }
 
