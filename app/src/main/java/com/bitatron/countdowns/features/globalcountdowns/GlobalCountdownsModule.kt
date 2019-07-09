@@ -4,14 +4,16 @@ import com.bitatron.countdowns.features.globalcountdowns.domain.GetCategoriesUse
 import com.bitatron.countdowns.features.globalcountdowns.domain.GetGlobalCountdownsUseCase
 import com.bitatron.countdowns.features.globalcountdowns.presentation.GlobalCountdownsViewModel
 import com.bitatron.countdowns.features.globalcountdowns.presentation.addViewHolders
+import com.bitatron.snazzyrecycling.PUBLISH_SUBJECT_RECYCLER_ITEM_CLICKED
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val globalCountdownsModule = module {
     factory { GetGlobalCountdownsUseCase(get()) }
     factory { GetCategoriesUseCase(get()) }
 
-    viewModel { GlobalCountdownsViewModel(get(), get(), get()) }
+    viewModel { GlobalCountdownsViewModel(get(), get(), get(), get(named(PUBLISH_SUBJECT_RECYCLER_ITEM_CLICKED))) }
 
     addViewHolders()
 }

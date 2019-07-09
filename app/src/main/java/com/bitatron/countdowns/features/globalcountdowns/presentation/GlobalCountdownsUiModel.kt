@@ -9,7 +9,8 @@ import java.util.*
 data class GlobalCountdownsUiModel(
     val isLoading: Boolean = false,
     val categories: List<UiCategory> = emptyList(),
-    val subCategories: List<UiSubCategory> = emptyList()
+    val subCategories: List<UiSubCategory> = emptyList(),
+    val subCategoriesToDisplay: List<UiSubCategory> = emptyList()
 ) : UiModel(Stack(), Stack(), Stack())
 
 object LoadCategoriesViewModelAction : ViewModelAction
@@ -35,5 +36,35 @@ data class LoadCategoriesFailedInput(private val throwable: Throwable) : Input<G
     override fun transformState(uiModel: GlobalCountdownsUiModel): GlobalCountdownsUiModel =
         uiModel.copy(isLoading = false)
             .push(ShowLoadCategoriesErrorActivityAction)
+}
+
+data class SelectCategoryInput(private val category: UiCategory, private val isChecked: Boolean) :Input<GlobalCountdownsUiModel> {
+    override fun transformState(uiModel: GlobalCountdownsUiModel): GlobalCountdownsUiModel {
+        val updatedCategory = category.copy(isSelected = isChecked)
+        val categories = uiModel.categories.map { if (it.id == updatedCategory.id) updatedCategory else it.copy(isSelected = false) }
+
+        var subCategoriesToDisplay =
+            when (updatedCategory.isSelected) {
+                true -> uiModel.subCategories.filter { it.categoryId == category.id }
+                else -> emptyList()
+            }
+        subCategoriesToDisplay = if (subCategoriesToDisplay.size == 1) {
+            emptyList()
+        } else {
+            subCategoriesToDisplay
+        }
+
+
+        return uiModel.copy(categories = categories, subCategoriesToDisplay = subCategoriesToDisplay)
+    }
+}
+
+data class SelectSubCategoryInput(private val subCategory: UiSubCategory, private val isChecked: Boolean) :Input<GlobalCountdownsUiModel> {
+    override fun transformState(uiModel: GlobalCountdownsUiModel): GlobalCountdownsUiModel {
+        val updatedSubCategory = subCategory.copy(isSelected = isChecked)
+        val subCategoriesToDisplay = uiModel.subCategoriesToDisplay.map { if (it.id == updatedSubCategory.id) updatedSubCategory else it }
+
+        return uiModel.copy(subCategoriesToDisplay = subCategoriesToDisplay)
+    }
 }
 
