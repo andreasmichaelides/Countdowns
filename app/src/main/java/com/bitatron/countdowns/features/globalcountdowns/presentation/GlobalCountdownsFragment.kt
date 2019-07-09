@@ -35,7 +35,7 @@ class GlobalCountdownsFragment : Fragment() {
 
         categoriesRecycler.adapter = categoriesCoreAdapter
         subCategoriesRecycler.adapter = subCategoriesCoreAdapter
-        val itemOffsetDecoration = ItemOffsetDecoration(requireActivity(), R.dimen.recycler_item_spacing)
+        val itemOffsetDecoration = ItemOffsetDecoration(requireContext(), R.dimen.recycler_item_spacing)
         categoriesRecycler.addItemDecoration(itemOffsetDecoration)
         subCategoriesRecycler.addItemDecoration(itemOffsetDecoration)
         countdownsRecycler.adapter = countdownsCoreAdapter
