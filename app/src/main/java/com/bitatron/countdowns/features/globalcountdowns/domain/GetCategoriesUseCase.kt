@@ -20,7 +20,6 @@ class GetCategoriesUseCase(private val schedulersProvider: SchedulersProvider) {
                     UiSubCategory("1-2", "1", "TV Series", false),
                     UiSubCategory("1-3", "1", "Movies", false),
                     UiSubCategory("2-1", "2", "Hardware", false),
-                    UiSubCategory("2-2", "2", "Software", false),
                     UiSubCategory("3-1", "3", "Travel", false),
                     UiSubCategory("3-2", "3", "Business", false)
                 )

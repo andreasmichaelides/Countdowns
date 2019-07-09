@@ -99,11 +99,29 @@ data class SelectSubCategoryInput(private val subCategory: UiSubCategory, privat
     }
 }
 
-private fun getCountdownsToDisplay(updatedCategory: UiCategory, uiModel: GlobalCountdownsUiModel
-): List<UiCountdown> {
+data class CountdownNotificationClickInput(private val uiCountdown: UiCountdown) :Input<GlobalCountdownsUiModel> {
+    override fun transformState(uiModel: GlobalCountdownsUiModel): GlobalCountdownsUiModel {
+        val updatedCountdown = uiCountdown.copy(isSetToNotify = uiCountdown.isSetToNotify.not())
+        val updatedCountdowns = uiModel.countDowns.map { if (it.id == uiCountdown.id) updatedCountdown else it }
+        val updatedCountdownsToDisplay = uiModel.countDownsToDisplay.map { if (it.id == uiCountdown.id) updatedCountdown else it }
+
+        return uiModel.copy(countDowns = updatedCountdowns, countDownsToDisplay = updatedCountdownsToDisplay)
+    }
+}
+
+data class CountdownBookmarkClickInput(private val uiCountdown: UiCountdown) :Input<GlobalCountdownsUiModel> {
+    override fun transformState(uiModel: GlobalCountdownsUiModel): GlobalCountdownsUiModel {
+        val updatedCountdown = uiCountdown.copy(isBookmarked = uiCountdown.isBookmarked.not())
+        val updatedCountdowns = uiModel.countDowns.map { if (it.id == uiCountdown.id) updatedCountdown else it }
+        val updatedCountdownsToDisplay = uiModel.countDownsToDisplay.map { if (it.id == uiCountdown.id) updatedCountdown else it }
+
+        return uiModel.copy(countDowns = updatedCountdowns, countDownsToDisplay = updatedCountdownsToDisplay)
+    }
+}
+
+private fun getCountdownsToDisplay(updatedCategory: UiCategory, uiModel: GlobalCountdownsUiModel): List<UiCountdown> {
     return when (updatedCategory.isSelected) {
         true -> uiModel.countDowns.filter { it.categories.contains(updatedCategory.id) }
         else -> uiModel.countDowns
     }
 }
-

@@ -15,6 +15,8 @@ object CountdownRecyclerItemType: RecyclerItemType
 
 data class CategoryClickAction(val isChecked: Boolean): ClickAction
 data class SubCategoryClickAction(val isChecked: Boolean): ClickAction
+object CategoryNotificationClickAction: ClickAction
+object CategoryBookmarkClickAction: ClickAction
 
 fun addViewHolders() {
     addViewHolder(CategoryRecyclerItemType, R.layout.item_category, ::createCategoryViewHolder)
@@ -63,7 +65,8 @@ class SubCategoryViewHolder(containerView: View): ClickableCoreViewHolder(contai
 class CountdownViewHolder(containerView: View): ClickableCoreViewHolder(containerView) {
 
     init {
-//        categoryChip.setOnClickListener{ itemClicked.onNext(ClickedRecyclerItem(SubCategoryClickAction(categoryChip.isChecked), item)) }
+        countdownNotification.setOnClickListener{ itemClicked.onNext(ClickedRecyclerItem(CategoryNotificationClickAction, item)) }
+        countdownBookmarked.setOnClickListener{ itemClicked.onNext(ClickedRecyclerItem(CategoryBookmarkClickAction, item)) }
     }
 
     override fun bind(item: RecyclerItem) {
@@ -72,6 +75,8 @@ class CountdownViewHolder(containerView: View): ClickableCoreViewHolder(containe
             is UiCountdown -> {
                 countDownName.text = item.name
                 countDownRemainingTime.text = item.remainingTime
+                countdownNotification.setImageResource(if (item.isSetToNotify) R.drawable.ic_notifications_active_black_24dp else R.drawable.ic_notifications_none_black_24dp)
+                countdownBookmarked.setImageResource(if (item.isBookmarked) R.drawable.ic_bookmark_black_24dp else R.drawable.ic_bookmark_border_black_24dp)
             }
         }
     }

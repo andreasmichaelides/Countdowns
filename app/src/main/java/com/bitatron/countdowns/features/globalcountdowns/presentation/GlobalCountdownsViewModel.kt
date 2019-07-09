@@ -3,6 +3,7 @@ package com.bitatron.countdowns.features.globalcountdowns.presentation
 import com.bitatron.countdowns.features.globalcountdowns.domain.GetCategoriesUseCase
 import com.bitatron.countdowns.features.globalcountdowns.domain.GetGlobalCountdownsUseCase
 import com.bitatron.countdowns.features.globalcountdowns.presentation.model.UiCategory
+import com.bitatron.countdowns.features.globalcountdowns.presentation.model.UiCountdown
 import com.bitatron.countdowns.features.globalcountdowns.presentation.model.UiSubCategory
 import com.bitatron.snazzyrecycling.ClickedRecyclerItem
 import com.bitatron.statestream.logger.Logger
@@ -43,16 +44,28 @@ class GlobalCountdownsViewModel(
                 }.subscribe { input().onNext(LoadCountdownsSuccessInput(it)) },
 
             itemClicked.filter { it.clickAction is CategoryClickAction }
-                .map { it.recyclerItem as UiCategory to (it.clickAction as CategoryClickAction).isChecked}
+                .map { it.recyclerItem as UiCategory to (it.clickAction as CategoryClickAction).isChecked }
                 .doOnError { logger.e(this, it) }
-                .onErrorResumeNext (Observable.never())
+                .onErrorResumeNext(Observable.never())
                 .subscribe { input().onNext(SelectCategoryInput(it.first, it.second)) },
 
             itemClicked.filter { it.clickAction is SubCategoryClickAction }
-                .map { it.recyclerItem as UiSubCategory to (it.clickAction as SubCategoryClickAction).isChecked}
+                .map { it.recyclerItem as UiSubCategory to (it.clickAction as SubCategoryClickAction).isChecked }
                 .doOnError { logger.e(this, it) }
-                .onErrorResumeNext (Observable.never())
-                .subscribe { input().onNext(SelectSubCategoryInput(it.first, it.second)) }
+                .onErrorResumeNext(Observable.never())
+                .subscribe { input().onNext(SelectSubCategoryInput(it.first, it.second)) },
+
+            itemClicked.filter { it.clickAction is CategoryNotificationClickAction }
+                .map { it.recyclerItem as UiCountdown }
+                .doOnError { logger.e(this, it) }
+                .onErrorResumeNext(Observable.never())
+                .subscribe { input().onNext(CountdownNotificationClickInput(it)) },
+
+            itemClicked.filter { it.clickAction is CategoryBookmarkClickAction }
+                .map { it.recyclerItem as UiCountdown }
+                .doOnError { logger.e(this, it) }
+                .onErrorResumeNext(Observable.never())
+                .subscribe { input().onNext(CountdownBookmarkClickInput(it)) }
         )
     }
 

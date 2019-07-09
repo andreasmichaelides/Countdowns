@@ -35,7 +35,9 @@ class GetGlobalCountdownsUseCase(private val schedulersProvider: SchedulersProvi
                     it.endTime.toString(),
                     Days.daysBetween(dateTimeNow, it.endTime).days.toString(),
                     it.categories,
-                    it.subCategories
+                    it.subCategories,
+                    it.isSetToNotify,
+                    it.isBookmarked
                 )
             }
         }.subscribeOn(schedulersProvider.io())
