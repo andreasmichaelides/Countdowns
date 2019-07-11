@@ -25,29 +25,101 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp" android:textSize="18sp"/>
 
-        <TextView
+        <LinearLayout
+                android:id="@+id/countdownTimerLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/countDownRemainingTime"
+                android:orientation="horizontal"
+                android:layout_margin="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/countDownName"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
-                tools:text="00h 00m 00s"
-                android:textSize="24sp"
-        />
+        >
 
+            <TextView
+                    android:id="@+id/countdownNumberOfWeeks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:layout_marginStart="4dp"
+                    tools:text="00"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/countdown_weeks"
+            />
+
+            <TextView
+                    android:id="@+id/countdownNumberOfDays"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:layout_marginStart="4dp"
+                    tools:text="00"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/countdown_days"
+            />
+
+            <TextView
+                    android:id="@+id/countdownNumberOfHours"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:layout_marginStart="4dp"
+                    tools:text="00"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/countdown_hours"
+            />
+
+            <TextView
+                    android:id="@+id/countdownNumberOfMinutes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:layout_marginStart="4dp"
+                    tools:text="00"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/countdown_minutes"
+            />
+
+            <TextView
+                    android:id="@+id/countdownNumberOfSeconds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:layout_marginStart="4dp"
+                    tools:text="00"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/countdown_seconds"
+            />
+
+
+        </LinearLayout>
 
         <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_notifications_none_black_24dp"
                 android:id="@+id/countdownNotification"
-                app:layout_constraintTop_toBottomOf="@+id/countDownRemainingTime"
+                app:layout_constraintTop_toBottomOf="@+id/countdownTimerLayout"
                 app:layout_constraintEnd_toStartOf="@+id/countdownBookmarked"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:padding="8dp"/>
@@ -57,7 +129,7 @@
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_bookmark_border_black_24dp"
                 android:id="@+id/countdownBookmarked"
-                app:layout_constraintTop_toBottomOf="@+id/countDownRemainingTime"
+                app:layout_constraintTop_toBottomOf="@+id/countdownTimerLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:padding="8dp"/>

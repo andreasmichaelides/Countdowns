@@ -40,7 +40,7 @@ class GlobalCountdownsFragment : Fragment() {
         subCategoriesRecycler.addItemDecoration(itemOffsetDecoration)
         countdownsRecycler.adapter = countdownsCoreAdapter
 
-        globalCountdownsViewModel.loadCategories()
+        globalCountdownsViewModel.loadData()
     }
 
     private fun onStateChanged(uiModel: GlobalCountdownsUiModel) {

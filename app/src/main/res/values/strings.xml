@@ -3,4 +3,12 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
+    <string name="countdown_format">%02dw %02dd %02dh %02dm %02ds</string>
+    <string name="single_countdown_format">%02d</string>
+    <string name="countdown_weeks">W</string>
+    <string name="countdown_days">D</string>
+    <string name="countdown_hours">H</string>
+    <string name="countdown_minutes">M</string>
+    <string name="countdown_seconds">S</string>
 </resources>

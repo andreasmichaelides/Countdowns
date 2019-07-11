@@ -1,13 +1,17 @@
 package com.bitatron.countdowns.features.globalcountdowns.domain
 
 import com.bitatron.countdowns.core.domain.countdowns.Countdown
+import com.bitatron.countdowns.features.globalcountdowns.presentation.model.RemainingTime
 import com.bitatron.countdowns.features.globalcountdowns.presentation.model.UiCountdown
 import com.bitatron.statestream.schedulers.SchedulersProvider
 import io.reactivex.Single
 import org.joda.time.*
 import org.joda.time.format.DateTimeFormat
 
-class GetGlobalCountdownsUseCase(private val schedulersProvider: SchedulersProvider) {
+class GetGlobalCountdownsUseCase(
+    private val schedulersProvider: SchedulersProvider,
+    private val countdownFormat: String
+) {
 
     fun execute(): Single<List<UiCountdown>> {
 
@@ -43,20 +47,27 @@ class GetGlobalCountdownsUseCase(private val schedulersProvider: SchedulersProvi
             .observeOn(schedulersProvider.mainThread())
     }
 
-}
 
-fun getRemainingTimeText(endTime: DateTime, startTime: DateTime = DateTime.now()) : String {
-    val weeksBetween = Weeks.weeksBetween(startTime, endTime)
-    val daysBetween = Days.daysBetween(startTime, endTime)
-    val hoursBetween = Hours.hoursBetween(startTime, endTime)
-    val minutesBetween = Minutes.minutesBetween(startTime, endTime)
-    val secondsBetween = Seconds.secondsBetween(startTime, endTime)
+    private fun getRemainingTimeText(endTime: DateTime, startTime: DateTime = DateTime.now()): RemainingTime {
+        val weeksBetween = Weeks.weeksBetween(startTime, endTime)
+        val daysBetween = Days.daysBetween(startTime, endTime)
+        val hoursBetween = Hours.hoursBetween(startTime, endTime)
+        val minutesBetween = Minutes.minutesBetween(startTime, endTime)
+        val secondsBetween = Seconds.secondsBetween(startTime, endTime)
 
-    val remainingWeeks = weeksBetween.weeks
-    val remainingDays = daysBetween.minus(weeksBetween.toStandardDays()).days
-    val remainingHours = hoursBetween.minus(daysBetween.toStandardHours()).hours
-    val remainingMinutes = minutesBetween.minus(hoursBetween.toStandardMinutes()).minutes
-    val remainingSeconds = secondsBetween.minus(minutesBetween.toStandardSeconds()).seconds
+        val remainingWeeks = weeksBetween.weeks
+        val remainingDays = daysBetween.minus(weeksBetween.toStandardDays()).days
+        val remainingHours = hoursBetween.minus(daysBetween.toStandardHours()).hours
+        val remainingMinutes = minutesBetween.minus(hoursBetween.toStandardMinutes()).minutes
+        val remainingSeconds = secondsBetween.minus(minutesBetween.toStandardSeconds()).seconds
 
-    return "${remainingWeeks}w ${remainingDays}d ${remainingHours}h ${remainingMinutes}m ${remainingSeconds}s"
+//    return "${remainingWeeks}w ${remainingDays}d ${remainingHours}h ${remainingMinutes}m ${remainingSeconds}s"
+        return RemainingTime(
+            String.format(countdownFormat, remainingWeeks),
+            String.format(countdownFormat, remainingDays),
+            String.format(countdownFormat, remainingHours),
+            String.format(countdownFormat, remainingMinutes),
+            String.format(countdownFormat, remainingSeconds)
+        )
+    }
 }

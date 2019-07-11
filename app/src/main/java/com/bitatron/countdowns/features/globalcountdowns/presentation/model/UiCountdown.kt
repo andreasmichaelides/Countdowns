@@ -7,9 +7,17 @@ data class UiCountdown(
     override val id: String,
     val name: String,
     val endTime: String,
-    val remainingTime: String,
+    val remainingTime: RemainingTime,
     val categories: List<String>,
     val subCategories: List<String>,
     val isSetToNotify: Boolean,
     val isBookmarked: Boolean
 ): StringIdRecyclerItem(id, CountdownRecyclerItemType)
+
+data class RemainingTime(
+    val weeks: String,
+    val days: String,
+    val hours: String,
+    val minutes: String,
+    val seconds: String
+)

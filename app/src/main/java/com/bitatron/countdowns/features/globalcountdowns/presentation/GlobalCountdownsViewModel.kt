@@ -69,7 +69,7 @@ class GlobalCountdownsViewModel(
         )
     }
 
-    fun loadCategories() {
+    fun loadData() {
         input().onNext(LoadCategoriesInput)
     }
 }

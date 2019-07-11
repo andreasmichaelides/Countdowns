@@ -74,7 +74,13 @@ class CountdownViewHolder(containerView: View): ClickableCoreViewHolder(containe
         when (item) {
             is UiCountdown -> {
                 countDownName.text = item.name
-                countDownRemainingTime.text = item.remainingTime
+
+                countdownNumberOfWeeks.text = item.remainingTime.weeks
+                countdownNumberOfDays.text = item.remainingTime.days
+                countdownNumberOfHours.text = item.remainingTime.hours
+                countdownNumberOfMinutes.text = item.remainingTime.minutes
+                countdownNumberOfSeconds.text = item.remainingTime.seconds
+
                 countdownNotification.setImageResource(if (item.isSetToNotify) R.drawable.ic_notifications_active_black_24dp else R.drawable.ic_notifications_none_black_24dp)
                 countdownBookmarked.setImageResource(if (item.isBookmarked) R.drawable.ic_bookmark_black_24dp else R.drawable.ic_bookmark_border_black_24dp)
             }
