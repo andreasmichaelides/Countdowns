@@ -111,8 +111,20 @@
                     android:text="@string/countdown_seconds"
             />
 
-
         </LinearLayout>
+
+        <TextView
+                android:id="@+id/countdownEndedText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="8dp"
+                android:text="@string/countdown_ended"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/countDownName"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textSize="20sp"
+        />
 
         <ImageView
                 android:layout_width="wrap_content"

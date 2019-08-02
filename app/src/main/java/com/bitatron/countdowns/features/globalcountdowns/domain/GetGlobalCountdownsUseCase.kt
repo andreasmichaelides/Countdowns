@@ -27,7 +27,10 @@ class GetGlobalCountdownsUseCase(
                     false,
                     false,
                     listOf("3"),
-                    listOf("3-1")
+                    listOf("3-1"),
+                    "Berlin",
+                    0.0,
+                    0.0
                 )
             )
         ).map { countdowns ->
@@ -40,13 +43,16 @@ class GetGlobalCountdownsUseCase(
                     it.categories,
                     it.subCategories,
                     it.isSetToNotify,
-                    it.isBookmarked
+                    it.isBookmarked,
+                    it.location,
+                    it.latitude,
+                    it.longitude,
+                    it.endTime.isBeforeNow
                 )
             }
         }.subscribeOn(schedulersProvider.io())
             .observeOn(schedulersProvider.mainThread())
     }
-
 
     private fun getRemainingTimeText(endTime: DateTime, startTime: DateTime = DateTime.now()): RemainingTime {
         val weeksBetween = Weeks.weeksBetween(startTime, endTime)
@@ -61,7 +67,6 @@ class GetGlobalCountdownsUseCase(
         val remainingMinutes = minutesBetween.minus(hoursBetween.toStandardMinutes()).minutes
         val remainingSeconds = secondsBetween.minus(minutesBetween.toStandardSeconds()).seconds
 
-//    return "${remainingWeeks}w ${remainingDays}d ${remainingHours}h ${remainingMinutes}m ${remainingSeconds}s"
         return RemainingTime(
             String.format(countdownFormat, remainingWeeks),
             String.format(countdownFormat, remainingDays),

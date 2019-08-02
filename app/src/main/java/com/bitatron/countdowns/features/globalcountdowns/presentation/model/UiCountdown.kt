@@ -11,7 +11,11 @@ data class UiCountdown(
     val categories: List<String>,
     val subCategories: List<String>,
     val isSetToNotify: Boolean,
-    val isBookmarked: Boolean
+    val isBookmarked: Boolean,
+    val location: String,
+    val latitude: Double,
+    val longitude: Double,
+    val ended: Boolean
 ): StringIdRecyclerItem(id, CountdownRecyclerItemType)
 
 data class RemainingTime(

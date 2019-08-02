@@ -9,5 +9,8 @@ data class Countdown(
     val isSetToNotify: Boolean,
     val isBookmarked: Boolean,
     val categories: List<String>,
-    val subCategories: List<String>
+    val subCategories: List<String>,
+    val location: String,
+    val latitude: Double,
+    val longitude: Double
 )

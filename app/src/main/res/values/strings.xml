@@ -11,4 +11,5 @@
     <string name="countdown_hours">H</string>
     <string name="countdown_minutes">M</string>
     <string name="countdown_seconds">S</string>
+    <string name="countdown_ended">ENDED</string>
 </resources>
