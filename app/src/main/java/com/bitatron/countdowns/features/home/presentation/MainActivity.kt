@@ -20,11 +20,11 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_bookmarks -> {
-                textMessage.setText(R.string.title_dashboard)
+                textMessage.setText(R.string.title_personal)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_user_countdowns -> {
-                textMessage.setText(R.string.title_notifications)
+                textMessage.setText(R.string.title_bookmarks)
                 return@OnNavigationItemSelectedListener true
             }
         }

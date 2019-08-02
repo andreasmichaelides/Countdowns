@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Countdowns</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_personal">Personal</string>
+    <string name="title_bookmarks">Bookmarks</string>
 
     <string name="countdown_format">%02dw %02dd %02dh %02dm %02ds</string>
     <string name="single_countdown_format">%02d</string>

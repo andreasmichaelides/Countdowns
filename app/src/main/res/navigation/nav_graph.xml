@@ -7,10 +7,10 @@
     <fragment android:id="@+id/navigation_global_countdowns"
               android:name="com.bitatron.countdowns.features.globalcountdowns.presentation.GlobalCountdownsFragment"
               android:label="GlobalCountdowns"/>
-    <fragment android:id="@+id/navigation_bookmarks"
+    <fragment android:id="@+id/navigation_user_countdowns"
               android:name="com.bitatron.countdowns.features.bookmarks.presentation.Bookmarks"
               android:label="Bookmarks"/>
-    <fragment android:id="@+id/navigation_user_countdowns"
+    <fragment android:id="@+id/navigation_bookmarks"
               android:name="com.bitatron.countdowns.features.usercountdowns.presentation.UserCountdowns"
               android:label="UserCountdowns"/>
 </navigation>
