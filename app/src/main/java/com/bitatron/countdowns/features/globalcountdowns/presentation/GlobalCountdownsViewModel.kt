@@ -1,9 +1,11 @@
 package com.bitatron.countdowns.features.globalcountdowns.presentation
 
+import com.bitatron.countdowns.core.presentation.CategoryBookmarkClickAction
+import com.bitatron.countdowns.core.presentation.CountdownNotificationClickAction
+import com.bitatron.countdowns.core.presentation.model.UiCountdown
 import com.bitatron.countdowns.features.globalcountdowns.domain.GetCategoriesUseCase
 import com.bitatron.countdowns.features.globalcountdowns.domain.GetGlobalCountdownsUseCase
 import com.bitatron.countdowns.features.globalcountdowns.presentation.model.UiCategory
-import com.bitatron.countdowns.core.presentation.model.UiCountdown
 import com.bitatron.countdowns.features.globalcountdowns.presentation.model.UiSubCategory
 import com.bitatron.snazzyrecycling.ClickedRecyclerItem
 import com.bitatron.statestream.logger.Logger

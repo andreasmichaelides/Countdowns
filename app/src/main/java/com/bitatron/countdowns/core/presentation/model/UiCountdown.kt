@@ -1,6 +1,6 @@
 package com.bitatron.countdowns.core.presentation.model
 
-import com.bitatron.countdowns.features.globalcountdowns.presentation.CountdownRecyclerItemType
+import com.bitatron.countdowns.core.presentation.CountdownRecyclerItemType
 import com.bitatron.snazzyrecycling.StringIdRecyclerItem
 
 data class UiCountdown(

@@ -1,7 +1,7 @@
 package com.bitatron.countdowns.features.usercountdowns.presentation
 
+import com.bitatron.countdowns.core.presentation.CountdownNotificationClickAction
 import com.bitatron.countdowns.core.presentation.model.UiCountdown
-import com.bitatron.countdowns.features.globalcountdowns.presentation.CountdownNotificationClickAction
 import com.bitatron.countdowns.features.usercountdowns.domain.GetUserCountdownsUseCase
 import com.bitatron.snazzyrecycling.ClickedRecyclerItem
 import com.bitatron.statestream.logger.Logger
