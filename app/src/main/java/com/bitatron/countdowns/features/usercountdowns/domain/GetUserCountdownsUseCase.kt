@@ -1,4 +1,4 @@
-package com.bitatron.countdowns.features.globalcountdowns.domain
+package com.bitatron.countdowns.features.usercountdowns.domain
 
 import com.bitatron.countdowns.core.domain.countdowns.Countdown
 import com.bitatron.countdowns.core.domain.mapper.CountdownToUiCountDownMapper
@@ -8,10 +8,8 @@ import io.reactivex.Single
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 
-class GetGlobalCountdownsUseCase(
-    private val schedulersProvider: SchedulersProvider,
-    private val countdownToUiCountDownMapper: CountdownToUiCountDownMapper
-) {
+class GetUserCountdownsUseCase(private val schedulersProvider: SchedulersProvider,
+                               private val countdownToUiCountDownMapper: CountdownToUiCountDownMapper) {
 
     fun execute(): Single<List<UiCountdown>> {
         val dateTimeNow = DateTime.now()
@@ -30,11 +28,12 @@ class GetGlobalCountdownsUseCase(
                     "Berlin",
                     0.0,
                     0.0,
-                    false
+                    true
                 )
             )
         ).map { countdowns -> countdowns.map { countdownToUiCountDownMapper.map(it, dateTimeNow) } }
             .subscribeOn(schedulersProvider.io())
             .observeOn(schedulersProvider.mainThread())
     }
+
 }

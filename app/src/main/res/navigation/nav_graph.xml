@@ -11,6 +11,6 @@
               android:name="com.bitatron.countdowns.features.bookmarks.presentation.Bookmarks"
               android:label="Bookmarks"/>
     <fragment android:id="@+id/navigation_bookmarks"
-              android:name="com.bitatron.countdowns.features.usercountdowns.presentation.UserCountdowns"
+              android:name="com.bitatron.countdowns.features.usercountdowns.presentation.UserCountdownsFragment"
               android:label="UserCountdowns"/>
 </navigation>

@@ -1,8 +1,8 @@
 package com.bitatron.countdowns.features.globalcountdowns.presentation
 
+import com.bitatron.countdowns.core.presentation.model.UiCountdown
 import com.bitatron.countdowns.features.globalcountdowns.domain.CategoryData
 import com.bitatron.countdowns.features.globalcountdowns.presentation.model.UiCategory
-import com.bitatron.countdowns.features.globalcountdowns.presentation.model.UiCountdown
 import com.bitatron.countdowns.features.globalcountdowns.presentation.model.UiSubCategory
 import com.bitatron.statestream.presentation.*
 import java.util.*

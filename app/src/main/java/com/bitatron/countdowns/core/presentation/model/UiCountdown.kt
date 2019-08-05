@@ -1,4 +1,4 @@
-package com.bitatron.countdowns.features.globalcountdowns.presentation.model
+package com.bitatron.countdowns.core.presentation.model
 
 import com.bitatron.countdowns.features.globalcountdowns.presentation.CountdownRecyclerItemType
 import com.bitatron.snazzyrecycling.StringIdRecyclerItem
@@ -15,7 +15,8 @@ data class UiCountdown(
     val location: String,
     val latitude: Double,
     val longitude: Double,
-    val ended: Boolean
+    val ended: Boolean,
+    val isUserCountdown: Boolean
 ): StringIdRecyclerItem(id, CountdownRecyclerItemType)
 
 data class RemainingTime(

@@ -3,7 +3,7 @@ package com.bitatron.countdowns.features.globalcountdowns.presentation
 import com.bitatron.countdowns.features.globalcountdowns.domain.GetCategoriesUseCase
 import com.bitatron.countdowns.features.globalcountdowns.domain.GetGlobalCountdownsUseCase
 import com.bitatron.countdowns.features.globalcountdowns.presentation.model.UiCategory
-import com.bitatron.countdowns.features.globalcountdowns.presentation.model.UiCountdown
+import com.bitatron.countdowns.core.presentation.model.UiCountdown
 import com.bitatron.countdowns.features.globalcountdowns.presentation.model.UiSubCategory
 import com.bitatron.snazzyrecycling.ClickedRecyclerItem
 import com.bitatron.statestream.logger.Logger
@@ -55,7 +55,7 @@ class GlobalCountdownsViewModel(
                 .onErrorResumeNext(Observable.never())
                 .subscribe { input().onNext(SelectSubCategoryInput(it.first, it.second)) },
 
-            itemClicked.filter { it.clickAction is CategoryNotificationClickAction }
+            itemClicked.filter { it.clickAction is CountdownNotificationClickAction }
                 .map { it.recyclerItem as UiCountdown }
                 .doOnError { logger.e(this, it) }
                 .onErrorResumeNext(Observable.never())

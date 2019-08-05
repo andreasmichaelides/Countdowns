@@ -12,5 +12,6 @@ data class Countdown(
     val subCategories: List<String>,
     val location: String,
     val latitude: Double,
-    val longitude: Double
+    val longitude: Double,
+    val isUserCountdown: Boolean
 )
