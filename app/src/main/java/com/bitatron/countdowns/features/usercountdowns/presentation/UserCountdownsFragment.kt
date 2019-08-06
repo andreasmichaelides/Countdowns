@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.bitatron.countdowns.R
+import com.bitatron.countdowns.features.addcountdown.presentation.AddCountdownActivity
 import com.bitatron.snazzyrecycling.CoreAdapter
 import com.bitatron.statestream.presentation.popAll
 import kotlinx.android.synthetic.main.fragment_user_countdowns.*
@@ -38,7 +39,9 @@ class UserCountdownsFragment : Fragment() {
         countdownsCoreAdapter.setData(uiModel.countDowns)
 
         uiModel.activityActions.popAll {
-
+            when(it) {
+                is EditCountdownActivityAction -> startActivity(AddCountdownActivity.createActivityIntent(requireActivity()))
+            }
         }
     }
 }

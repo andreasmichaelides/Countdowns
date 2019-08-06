@@ -3,6 +3,7 @@ package com.bitatron.countdowns.core.presentation
 import android.app.Application
 import com.bitatron.countdowns.core.coreModule
 import com.bitatron.countdowns.core.domain.domainModule
+import com.bitatron.countdowns.features.addcountdown.addCountdownModule
 import com.bitatron.countdowns.features.globalcountdowns.globalCountdownsModule
 import com.bitatron.countdowns.features.usercountdowns.userCountdownsModule
 import com.bitatron.snazzyrecycling.snazzyRecyclingModule
@@ -30,7 +31,8 @@ class CountdownsApplication : Application() {
                     coreModule,
                     domainModule,
                     globalCountdownsModule,
-                    userCountdownsModule
+                    userCountdownsModule,
+                    addCountdownModule
                 )
             )
         }

@@ -12,6 +12,7 @@ data class UserCountdownsUiModel(
 object LoadUserCountdownsViewModelAction : ViewModelAction
 
 object ShowLoadCountdownsErrorActivityAction : ActivityAction
+object EditCountdownActivityAction : ActivityAction
 
 object LoadUserCountdownsInput : Input<UserCountdownsUiModel> {
     override fun transformState(uiModel: UserCountdownsUiModel): UserCountdownsUiModel =
@@ -38,6 +39,12 @@ data class UserCountdownNotificationClickInput(private val uiCountdown: UiCountd
         val updatedCountdown = uiCountdown.copy(isSetToNotify = uiCountdown.isSetToNotify.not())
         val updatedCountdowns = uiModel.countDowns.map { if (it.id == uiCountdown.id) updatedCountdown else it }
         return uiModel.copy(countDowns = updatedCountdowns)
+    }
+}
+
+data class EditUserCountdownClickInput(private val uiCountdown: UiCountdown) : Input<UserCountdownsUiModel> {
+    override fun transformState(uiModel: UserCountdownsUiModel): UserCountdownsUiModel {
+        return uiModel.push(EditCountdownActivityAction)
     }
 }
 

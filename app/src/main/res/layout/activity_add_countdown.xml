@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/addCountdownTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Title"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/addCountdownTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/addCountdownEndDateTextInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="End date"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/addCountdownTextInputLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/addCountdownEndDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:textColor="@color/design_default_color_on_secondary"
+        />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+            android:id="@+id/addCountdownEndDateClickLayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="@+id/addCountdownEndDateTextInput"
+            app:layout_constraintTop_toTopOf="@+id/addCountdownEndDateTextInput"
+            app:layout_constraintEnd_toEndOf="@+id/addCountdownEndDateTextInput"
+            app:layout_constraintBottom_toBottomOf="@+id/addCountdownEndDateTextInput"
+    />
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/addCountdownEndTimeTextInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="End time"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/addCountdownEndDateTextInput"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/addCountdownEndTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:textColor="@color/design_default_color_on_secondary"
+        />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+            android:id="@+id/addCountdownEndTimeClickLayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="@+id/addCountdownEndTimeTextInput"
+            app:layout_constraintTop_toTopOf="@+id/addCountdownEndTimeTextInput"
+            app:layout_constraintEnd_toEndOf="@+id/addCountdownEndTimeTextInput"
+            app:layout_constraintBottom_toBottomOf="@+id/addCountdownEndTimeTextInput"
+    />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

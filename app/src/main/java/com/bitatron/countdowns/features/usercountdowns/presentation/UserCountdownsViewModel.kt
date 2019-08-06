@@ -1,6 +1,7 @@
 package com.bitatron.countdowns.features.usercountdowns.presentation
 
 import com.bitatron.countdowns.core.presentation.CountdownNotificationClickAction
+import com.bitatron.countdowns.core.presentation.EditCountdownClickAction
 import com.bitatron.countdowns.core.presentation.model.UiCountdown
 import com.bitatron.countdowns.features.usercountdowns.domain.GetUserCountdownsUseCase
 import com.bitatron.snazzyrecycling.ClickedRecyclerItem
@@ -36,7 +37,13 @@ class UserCountdownsViewModel(
                 .map { it.recyclerItem as UiCountdown }
                 .doOnError { logger.e(this, it) }
                 .onErrorResumeNext(Observable.never())
-                .subscribe { input().onNext(UserCountdownNotificationClickInput(it)) }
+                .subscribe { input().onNext(UserCountdownNotificationClickInput(it)) },
+
+            itemClicked.filter { it.clickAction is EditCountdownClickAction }
+                .map { it.recyclerItem as UiCountdown }
+                .doOnError { logger.e(this, it) }
+                .onErrorResumeNext(Observable.never())
+                .subscribe { input().onNext(EditUserCountdownClickInput(it)) }
         )
     }
 
